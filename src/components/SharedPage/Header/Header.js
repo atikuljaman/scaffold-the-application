@@ -2,18 +2,33 @@ import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import headerCenterImg from '../../../images/header-img.png';
 import { BsCart } from "react-icons/bs";
-// import { IoIosArrowDown } from "react-icons/io";
 import './Header.css';
 
 class Header extends Component {
-
     render() {
         return (
             <div id="navbar-section">
                 <ul id="navbar">
-                    <li><NavLink className="nav-link" to="">Women</NavLink></li>
-                    <li><NavLink className="nav-link" to="">Men</NavLink></li>
-                    <li><NavLink className="nav-link" to="">Kids</NavLink></li>
+                    <li><NavLink activeStyle={{
+                        fontWeight: 500,
+                        color: "#5ECE7B",
+                        borderBottom: '2px solid #5ECE7B'
+                    }}
+                        className="nav-link" to="/women">Women</NavLink></li>
+                    <li><NavLink
+                        activeStyle={{
+                            fontWeight: 500,
+                            color: "#5ECE7B",
+                            borderBottom: '2px solid #5ECE7B'
+                        }}
+                        className="nav-link" to="/men">Men</NavLink></li>
+                    <li><NavLink
+                        activeStyle={{
+                            fontWeight: 500,
+                            color: "#5ECE7B",
+                            borderBottom: '2px solid #5ECE7B'
+                        }}
+                        className="nav-link" to="/kids">Kids</NavLink></li>
                 </ul>
                 <div className="navbar-center">
                     <img className="bag" src={headerCenterImg} alt="" />
