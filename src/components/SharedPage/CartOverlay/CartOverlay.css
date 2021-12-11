@@ -1,0 +1,17 @@
+.cart-overlay-container{
+    width: 325px;
+    height: 540px;
+    background: #FFFFFF;
+    position: absolute;
+    top: 0px;
+    right: 70px;
+
+}
+.cart-overlay-section{
+    background: #39374838;
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    left: -1327.5px;
+    top: 24px;
+}

@@ -3,6 +3,7 @@
     align-items: center;
     justify-content: space-between;
     height: 80px;
+    z-index: 2;
 }
 #navbar{
     display: flex;
@@ -36,9 +37,28 @@
     font-weight: 500;
     border: none;
     outline: none;
+    cursor: pointer;
 }
-.cart-icon{
+.cart-icon-container{
+    position: relative;
+    z-index: 1;
+}
+.cart-icon > .cart-overlay-btn{
+    background-color: transparent;
+    border: none;
     font-size: 20px;
     margin-left: 20px;
     color: #43464E;
+    cursor: pointer;
+}
+.cart-overlay{
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: opacity 150ms ease-in-out, transform 150ms ease-in-out;
+    pointer-events: none;
+} 
+.cart-icon > .cart-overlay-btn:focus + .cart-overlay{
+    opacity: 1;
+    transform: translateY(0px);
+    pointer-events: auto;
 }
