@@ -10,23 +10,30 @@ class Header extends Component {
     render() {
 
         const cartOverlayBtn = e => {
-            const isCartOverlayDropDown = e.target.matches("[cart-dropdown-overlay-btn]");
-            if (!isCartOverlayDropDown && e.target.closest('[cart-dropdown-overlay]') != null) return;
+            const isDropDownButton = e.target.matches("[data-dropdown-overlay-btn]");
+            const body = document.querySelector("body");
+            if (isDropDownButton && e.target.closest("[data-dropdown-overlay]") != null) return;
 
             let cartDropdown;
-            if (isCartOverlayDropDown) {
-                cartDropdown = e.target.closest('[cart-dropdown-overlay]');
-                cartDropdown.classList.toggle('active');
+            if (!isDropDownButton) {
+                cartDropdown = e.target.closest("[data-dropdown-overlay]");
+                cartDropdown.classList.toggle("active");
+
+                if (cartDropdown.classList.contains("active")) {
+                    body.style.overflow = "hidden";
+                } else {
+                    body.style.overflow = "auto";
+                }
             }
 
-            document.querySelectorAll("[cart-dropdown-overlay].active").forEach(dropdown => {
+            document.querySelectorAll("[data-dropdown-overlay].active").forEach(dropdown => {
                 if (dropdown === cartDropdown) return;
-                dropdown.classList.remove("active");
+                dropdown.classList.remove("active")
             });
         }
 
         return (
-            <div id="navbar-section">
+            <div id="navbar-section" >
                 <ul id="navbar">
                     <li><NavLink activeStyle={{
                         fontWeight: 500,
@@ -62,11 +69,11 @@ class Header extends Component {
                         </select>
                     </div>
                     <div className="cart-icon-container">
-                        <div className="cart-icon" cart-dropdown-overlay>
-                            <button className="cart-overlay-btn" onClick={cartOverlayBtn} cart-dropdown-overlay-btn>
+                        <div className="dropdown" data-dropdown-overlay>
+                            <button className="cart-overlay-btn" onClick={cartOverlayBtn} data-dropdown-overlay-btn>
                                 <BsCart />
                             </button>
-                            <div className="cart-overlay">
+                            <div className="dropdown-menu">
                                 <CartOverlay />
                             </div>
                         </div>

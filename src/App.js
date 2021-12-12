@@ -4,21 +4,17 @@ import {
   Switch,
   Route,
 } from "react-router-dom";
-// import ApolloClient from 'apollo-boost';
-// import { ApolloProvider } from 'react-apollo';
 import Home from './components/Home/Home';
 import Women from './components/Home/Women/Women';
 import Men from './components/Home/Men/Men';
 import Kids from './components/Home/Kids/Kids';
 import ProductDetail from './components/ProductDetail/ProductDetail';
-
-// const client = new ApolloClient({ uri: 'http://localhost:4000/' });
+import ViewCart from './components/ViewCart/ViewCart';
 
 class App extends Component {
   render() {
     return (
       <div>
-        {/* <ApolloProvider client={client}> */}
         <Router>
           <Switch>
             <Route exact path="/">
@@ -39,9 +35,11 @@ class App extends Component {
             <Route path="/productDetail/:id" component={<ProductDetail />}>
               <ProductDetail />
             </Route>
+            <Route path="/viewCart">
+              <ViewCart />
+            </Route>
           </Switch>
         </Router>
-        {/* </ApolloProvider> */}
       </div>
     )
   }

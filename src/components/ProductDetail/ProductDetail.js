@@ -177,7 +177,7 @@ class ProductDetail extends Component {
                                     </div>
                                     <button className="add-to-cart-btn">Add to cart</button>
                                     <div className="product-description">
-                                        <p className="description">{data?.product?.description}</p>
+                                        <p className="description" dangerouslySetInnerHTML={{ __html: data?.product?.description }}></p>
                                     </div>
                                 </div>
                             </div>

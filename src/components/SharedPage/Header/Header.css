@@ -43,7 +43,7 @@
     position: relative;
     z-index: 1;
 }
-.cart-icon > .cart-overlay-btn{
+.dropdown.active > .cart-overlay-btn, .cart-overlay-btn{
     background-color: transparent;
     border: none;
     font-size: 20px;
@@ -51,13 +51,14 @@
     color: #43464E;
     cursor: pointer;
 }
-.cart-overlay{
+.dropdown-menu{
     opacity: 0;
-    transform: translateY(-20px);
-    transition: opacity 150ms ease-in-out, transform 150ms ease-in-out;
+    transform: translateY(-40px);
+    transition: opacity 500ms ease-in-out, transform 500ms ease-in-out;
     pointer-events: none;
+    position: absolute;
 } 
-.cart-icon > .cart-overlay-btn:focus + .cart-overlay{
+.dropdown.active > .cart-overlay-btn + .dropdown-menu{
     opacity: 1;
     transform: translateY(0px);
     pointer-events: auto;
