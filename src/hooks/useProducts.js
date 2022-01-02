@@ -1,12 +1,16 @@
 import { gql, useQuery } from '@apollo/client';
 
-// import { gql } from 'apollo-boost';
-// import { Query } from 'react-apollo';
-
 const GET_PRODUCTS = gql`
-    
+
     query{
-   category{
+      currencies
+      categories{
+        name
+        products{
+          name
+        }
+  }
+      category{
   products{
     id
     name
@@ -18,15 +22,16 @@ const GET_PRODUCTS = gql`
     }
   }
 }
+  
 }
 `;
 const useProducts = () => {
-    const { loading, error, data } = useQuery(GET_PRODUCTS);
+  const { loading, error, data } = useQuery(GET_PRODUCTS);
 
-    return {
-        loading,
-        error,
-        data
-    }
+  return {
+    loading,
+    error,
+    data
+  }
 }
 export default useProducts;

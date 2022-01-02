@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import { BsCart } from 'react-icons/bs';
-import Header from '../../SharedPage/Header/Header';
-import './Women.css';
 import { Link } from 'react-router-dom';
+import ButtonFunctionsContext from '../../../contexts/ButtonFunctions';
 import useProducts from '../../../hooks/useProducts';
+// import arrowImg from '../../../images/arrow.png';
+import './Women.css';
 
 
 function ProvideData({ children }) {
@@ -13,11 +14,18 @@ function ProvideData({ children }) {
 
 
 
+
+
+
 class Women extends Component {
+
     render() {
+
+        const { currency, amounts } = this.context;
+        // const symbols = ['$', '£', 'A$', '¥', '₽']
+        console.log(amounts);
         return (
             <div>
-                <Header />
                 <div className="women-section">
                     <ProvideData>
                         {
@@ -26,7 +34,15 @@ class Women extends Component {
                                 if (error) return <div>Error :(</div>;
                                 return (
                                     <>
-                                        <h1 className="page-tile">Category name</h1>
+                                        {/* <h1 className="page-tile">Category name</h1> */}
+                                        <select id="select">
+                                            <option defaultValue="All">All</option>
+                                            {
+                                                data.categories.map(category => (
+                                                    <option>{category?.name}</option>
+                                                ))
+                                            }
+                                        </select>
                                         <div className="women-card-container">
                                             <div className="product-card-container">
                                                 {
@@ -36,7 +52,20 @@ class Women extends Component {
                                                                 <div>
                                                                     <img className="product-img" src={product?.gallery[0]} alt="" />
                                                                     <p className="product-title">{product?.name}</p>
-                                                                    <p className="product-price">${product?.prices[0]?.amount}</p>
+                                                                    {!currency ? <p className="product-price">
+                                                                        ${product?.prices[0]?.amount}
+                                                                    </p>
+                                                                        :
+                                                                        <p className="product-price">
+                                                                            {
+                                                                                amounts.map((price, priceIndex) => (
+                                                                                    currency.currencyName === price?.currency &&
+                                                                                    <p className="product-price">{currency.symbol}{product?.prices[priceIndex].amount}</p>
+
+                                                                                ))
+                                                                            }
+                                                                        </p>}
+                                                                    {/* <p className="product-price">{currency}{product?.prices[0]?.amount}</p> */}
                                                                 </div>
                                                             </div>
                                                             <Link to={`/productDetail/${product?.id}`}>
@@ -61,6 +90,8 @@ class Women extends Component {
     }
 }
 
+
+Women.contextType = ButtonFunctionsContext;
 export default Women;
 
 

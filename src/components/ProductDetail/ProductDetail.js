@@ -1,7 +1,7 @@
-import React, { Component, createRef } from 'react'
+import React, { Component } from 'react'
 import { useParams } from 'react-router';
+import ButtonFunctionsContext from '../../contexts/ButtonFunctions';
 import useProduct from '../../hooks/useProduct';
-import Header from '../SharedPage/Header/Header';
 import './ProductDetail.css';
 
 
@@ -14,68 +14,11 @@ function ProvideSingleData({ children }) {
 
 class ProductDetail extends Component {
 
-    state = {
-        index: 0,
-        buttonIndex: 0,
-        capacityIndex: 0,
-        usbPortIndex: 0,
-        keyboardIndex: 0
-    }
-
-    selectedImgRef = createRef();
-    selectedSizeBtnRef = createRef();
-    selectedCapacityBtnRef = createRef();
-    selectedUsbPortBtnRef = createRef();
-    selectedKeyboardBtnRef = createRef();
-
-
-    handleTabImg = index => {
-        this.setState({ index: index })
-        const images = this.selectedImgRef.current.children;
-        for (let i = 0; i < images.length; i++) {
-            images[i].className = images[i].className.replace("active", "")
-        }
-        images[index].className = "active";
-    }
-
-    handleTabSizeBtn = buttonIndex => {
-        this.setState({ buttonIndex: buttonIndex })
-        const buttons = this.selectedSizeBtnRef.current.children;
-        for (let i = 0; i < buttons.length; i++) {
-            buttons[i].className = buttons[i].className.replace("active-btn", "")
-        }
-        buttons[buttonIndex].className = "active-btn";
-    }
-
-    handleTabCapacityBtn = capacityIndex => {
-        this.setState({ capacityIndex: capacityIndex })
-        const capacity = this.selectedCapacityBtnRef.current.children;
-        for (let i = 0; i < capacity.length; i++) {
-            capacity[i].className = capacity[i].className.replace("active-btn", "")
-        }
-        capacity[capacityIndex].className = "active-btn";
-    }
-
-    handleTabUsbPortBtn = usbPortIndex => {
-        this.setState({ usbPortIndex: usbPortIndex })
-        const usbPort = this.selectedUsbPortBtnRef.current.children;
-        for (let i = 0; i < usbPort.length; i++) {
-            usbPort[i].className = usbPort[i].className.replace("active-btn", "")
-        }
-        usbPort[usbPortIndex].className = "active-btn";
-    }
-
-    handleTabKeyboardBtn = keyboardIndex => {
-        this.setState({ keyboardIndex: keyboardIndex })
-        const usbPort = this.selectedKeyboardBtnRef.current.children;
-        for (let i = 0; i < usbPort.length; i++) {
-            usbPort[i].className = usbPort[i].className.replace("active-btn", "")
-        }
-        usbPort[keyboardIndex].className = "active-btn";
-    }
-
     render() {
-        const { index } = this.state
+        const { amounts, currency, index, selectedImgRef, selectedSizeBtnRef, selectedColorBtnRef, selectedCapacityBtnRef, selectedUsbPortBtnRef, selectedKeyboardBtnRef, handleAddToCart, handleTabImg, handleTabSizeBtn, handleTabColorBtn, handleTabCapacityBtn, handleTabKeyboardBtn, handleTabUsbPortBtn } = this.context
+
+
+
         return (
             <ProvideSingleData>
                 {({ id, data, error, loading }) => {
@@ -96,13 +39,12 @@ class ProductDetail extends Component {
 
                     return (
                         <>
-                            <Header />
                             <div className="product-detail-section" key={id}>
                                 <div className="product-detail-left-container">
-                                    <div className="unselected-product-img-container" ref={this.selectedImgRef}>
+                                    <div className="unselected-product-img-container" ref={selectedImgRef}>
                                         {data?.product?.gallery?.map((img, index) => (
                                             <img className="unselected-product-img" src={img} alt="Unselected Product Images"
-                                                onClick={() => this.handleTabImg(index)}
+                                                onClick={() => handleTabImg(index)}
                                             />
 
                                         ))}
@@ -120,46 +62,45 @@ class ProductDetail extends Component {
                                     <div className="product-size-option">
                                         {data?.product?.attributes.map(attribute => (
                                             <div>
-                                                {console.log(attribute)}
                                                 <p className="size-title">{attribute?.name}:</p>
-                                                <div>
+                                                <div style={{ display: 'flex' }}>
                                                     {
                                                         attribute.id === 'Size' &&
-                                                        <div className="size-select-btns" ref={this.selectedSizeBtnRef}>
+                                                        <div className="size-select-btns" ref={selectedSizeBtnRef}>
                                                             {attribute?.items.map((item, buttonIndex) => (
-                                                                <button onClick={() => this.handleTabSizeBtn(buttonIndex)}>{item?.displayValue}</button>
+                                                                <button onClick={() => handleTabSizeBtn(buttonIndex)}>{item.value}</button>
                                                             ))}
                                                         </div>
                                                     }
                                                     {
-                                                        attribute.id === 'Color' &&
-                                                        <div className="size-select-btns" ref={this.selectedSizeBtnRef}>
-                                                            {attribute?.items.map((item, buttonIndex) => (
-                                                                <button onClick={() => this.handleTabSizeBtn(buttonIndex)}>{item?.displayValue}</button>
+                                                        attribute.type === 'swatch' &&
+                                                        <div className="size-select-btns" ref={selectedColorBtnRef}>
+                                                            {attribute?.items.map((item, colorIndex) => (
+                                                                <button onClick={() => handleTabColorBtn(colorIndex)} style={{ backgroundColor: item?.value }}></button>
                                                             ))}
                                                         </div>
                                                     }
                                                     {
                                                         attribute.id === 'Capacity' &&
-                                                        <div className="size-select-btns" ref={this.selectedCapacityBtnRef}>
+                                                        <div className="size-select-btns" ref={selectedCapacityBtnRef}>
                                                             {attribute?.items.map((item, capacityIndex) => (
-                                                                <button onClick={() => this.handleTabCapacityBtn(capacityIndex)}>{item?.displayValue}</button>
+                                                                <button onClick={() => handleTabCapacityBtn(capacityIndex)}>{item?.value}</button>
                                                             ))}
                                                         </div>
                                                     }
                                                     {
                                                         attribute.id === 'With USB 3 ports' &&
-                                                        <div className="size-select-btns" ref={this.selectedUsbPortBtnRef}>
+                                                        <div className="size-select-btns" ref={selectedUsbPortBtnRef}>
                                                             {attribute?.items.map((item, usbPortIndex) => (
-                                                                <button onClick={() => this.handleTabUsbPortBtn(usbPortIndex)}>{item?.displayValue}</button>
+                                                                <button onClick={() => handleTabUsbPortBtn(usbPortIndex)}>{item?.value}</button>
                                                             ))}
                                                         </div>
                                                     }
                                                     {
                                                         attribute.id === 'Touch ID in keyboard' &&
-                                                        <div className="size-select-btns" ref={this.selectedKeyboardBtnRef}>
+                                                        <div className="size-select-btns" ref={selectedKeyboardBtnRef}>
                                                             {attribute?.items.map((item, keyboardIndex) => (
-                                                                <button onClick={() => this.handleTabKeyboardBtn(keyboardIndex)}>{item?.displayValue}</button>
+                                                                <button onClick={() => handleTabKeyboardBtn(keyboardIndex)}>{item?.value}</button>
                                                             ))}
                                                         </div>
                                                     }
@@ -171,11 +112,22 @@ class ProductDetail extends Component {
                                         {data?.product?.prices.map(attribute => (
                                             <div key={attribute?.id}>
                                                 <p className="price-title">{attribute?.__typename}:</p>
-                                                <p className="selected-product-price">${attribute?.amount}</p>
                                             </div>
+
                                         )).slice(0, 1)}
+                                        {
+                                            !currency ? <p className="selected-product-price">
+                                                ${data?.product?.prices[0].amount}
+                                            </p>
+                                                :
+                                                amounts.map((price, priceIndex) => (
+                                                    currency.currencyName === price?.currency &&
+                                                    <p className="selected-product-price">{currency.symbol}{data?.product?.prices[priceIndex].amount}</p>
+
+                                                ))
+                                        }
                                     </div>
-                                    <button className="add-to-cart-btn">Add to cart</button>
+                                    <button onClick={() => handleAddToCart(data)} className="add-to-cart-btn">Add to cart</button>
                                     <div className="product-description">
                                         <p className="description" dangerouslySetInnerHTML={{ __html: data?.product?.description }}></p>
                                     </div>
@@ -188,4 +140,5 @@ class ProductDetail extends Component {
         )
     }
 }
+ProductDetail.contextType = ButtonFunctionsContext;
 export default ProductDetail;
