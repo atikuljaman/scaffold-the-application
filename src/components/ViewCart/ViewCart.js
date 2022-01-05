@@ -29,9 +29,6 @@ class ViewCart extends Component {
                                             ))
                                         }
                                     </p>
-                                    {/* <p className="view-cart-product-price">$
-                                        {addedProduct?.prices[0]?.amount * addedProduct.count}
-                                    </p> */}
                                     <div className="view-cart-product-size-btn">
                                         {
                                             addedProduct?.attributes.map(attribute => (

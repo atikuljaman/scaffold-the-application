@@ -16,7 +16,9 @@ export class ButtonFunctionsProvider extends Component {
             keyboardIndex: 0,
             currency: '',
             amounts: [],
-            priceIndex: 0
+            priceIndex: 0,
+            category: '',
+            filterProducts: []
         }
     };
 
@@ -147,7 +149,7 @@ export class ButtonFunctionsProvider extends Component {
             {
                 currencyName: "RUB",
                 symbol: '₽'
-            },
+            }
         ];
 
 
@@ -174,15 +176,27 @@ export class ButtonFunctionsProvider extends Component {
         })
     }
 
+    productCategory = e => {
+        this.setState({ category: e.target.value })
+        console.log(e.target.value);
+    }
+
+    filterProductsByCategory = data => {
+        this.setState({ filterProducts: data })
+        console.log(this.state.filterProducts);
+    }
+
 
     render() {
-        const { amounts, currency, addedProducts, filterProduct, index, buttonIndex, colorIndex, capacityIndex, usbPortIndex, keyboardIndex } = this.state;
-        const { selectedImgRef, selectedSizeBtnRef, selectedColorBtnRef, selectedCapacityBtnRef, selectedUsbPortBtnRef, selectedKeyboardBtnRef, handleAddToCart, handleIncrementProductQuantity, handleDecrementProductQuantity, handleTabImg, handleTabSizeBtn, handleTabColorBtn, handleTabCapacityBtn, handleTabUsbPortBtn, handleTabKeyboardBtn, currencySwitcher, amountSwitcher } = this;
+        const { category, filterProducts, amounts, currency, addedProducts, filterProduct, index, buttonIndex, colorIndex, capacityIndex, usbPortIndex, keyboardIndex } = this.state;
+        const { selectedImgRef, selectedSizeBtnRef, selectedColorBtnRef, selectedCapacityBtnRef, selectedUsbPortBtnRef, selectedKeyboardBtnRef, handleAddToCart, handleIncrementProductQuantity, handleDecrementProductQuantity, handleTabImg, handleTabSizeBtn, handleTabColorBtn, handleTabCapacityBtn, handleTabUsbPortBtn, handleTabKeyboardBtn, currencySwitcher, amountSwitcher, filterProductsByCategory, productCategory } = this;
 
 
 
         return (
             <ButtonFunctionsContext.Provider value={{
+                category,
+                filterProducts,
                 amounts,
                 currency,
                 addedProducts,
@@ -209,7 +223,9 @@ export class ButtonFunctionsProvider extends Component {
                 handleTabUsbPortBtn,
                 handleTabKeyboardBtn,
                 currencySwitcher,
-                amountSwitcher
+                amountSwitcher,
+                filterProductsByCategory,
+                productCategory
 
 
 

@@ -3,7 +3,6 @@ import { BsCart } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
 import ButtonFunctionsContext from '../../../contexts/ButtonFunctions';
 import useProducts from '../../../hooks/useProducts';
-// import arrowImg from '../../../images/arrow.png';
 import './Women.css';
 
 
@@ -13,17 +12,11 @@ function ProvideData({ children }) {
 }
 
 
-
-
-
-
 class Women extends Component {
 
     render() {
 
-        const { currency, amounts } = this.context;
-        // const symbols = ['$', '£', 'A$', '¥', '₽']
-        console.log(amounts);
+        const { currency, amounts, filterProductsByCategory, productCategory, category, filterProducts } = this.context;
         return (
             <div>
                 <div className="women-section">
@@ -34,8 +27,7 @@ class Women extends Component {
                                 if (error) return <div>Error :(</div>;
                                 return (
                                     <>
-                                        {/* <h1 className="page-tile">Category name</h1> */}
-                                        <select id="select">
+                                        <select onChange={productCategory} onClick={() => filterProductsByCategory(data?.category?.products)} id="select">
                                             <option defaultValue="All">All</option>
                                             {
                                                 data.categories.map(category => (
@@ -43,10 +35,75 @@ class Women extends Component {
                                                 ))
                                             }
                                         </select>
+
                                         <div className="women-card-container">
                                             <div className="product-card-container">
+
                                                 {
-                                                    data.category.products.map(product => (
+                                                    !category ?
+                                                        data.category.products.map(product => (
+                                                            <div className="card">
+                                                                <div className="product-desc">
+                                                                    <div>
+                                                                        <img className="product-img" src={product?.gallery[0]} alt="" />
+                                                                        <p className="product-title">{product?.name}</p>
+                                                                        {!currency ? <p className="product-price">
+                                                                            ${product?.prices[0]?.amount}
+                                                                        </p>
+                                                                            :
+                                                                            <p className="product-price">
+                                                                                {
+                                                                                    amounts.map((price, priceIndex) => (
+                                                                                        currency.currencyName === price?.currency &&
+                                                                                        <p className="product-price">{currency.symbol}{product?.prices[priceIndex].amount}</p>
+
+                                                                                    ))
+                                                                                }
+                                                                            </p>}
+                                                                    </div>
+                                                                </div>
+                                                                <Link to={`/productDetail/${product?.id}`}>
+                                                                    <div className="add-to-cart">
+                                                                        <BsCart className="product-cart-icon" />
+                                                                    </div>
+                                                                </Link>
+                                                            </div>
+                                                        ))
+                                                        :
+                                                        category === 'All' &&
+                                                        filterProducts.map(product => (
+                                                            <div className="card">
+                                                                <div className="product-desc">
+                                                                    <div>
+                                                                        <img className="product-img" src={product?.gallery[0]} alt="" />
+                                                                        <p className="product-title">{product?.name}</p>
+                                                                        {!currency ? <p className="product-price">
+                                                                            ${product?.prices[0]?.amount}
+                                                                        </p>
+                                                                            :
+                                                                            <p className="product-price">
+                                                                                {
+                                                                                    amounts.map((price, priceIndex) => (
+                                                                                        currency.currencyName === price?.currency &&
+                                                                                        <p className="product-price">{currency.symbol}{product?.prices[priceIndex].amount}</p>
+
+                                                                                    ))
+                                                                                }
+                                                                            </p>}
+                                                                    </div>
+                                                                </div>
+                                                                <Link to={`/productDetail/${product?.id}`}>
+                                                                    <div className="add-to-cart">
+                                                                        <BsCart className="product-cart-icon" />
+                                                                    </div>
+                                                                </Link>
+                                                            </div>
+                                                        ))
+                                                }
+                                                {
+                                                    category === 'clothes' &&
+                                                    filterProducts.map(product => (
+                                                        product?.category === 'clothes' &&
                                                         <div className="card">
                                                             <div className="product-desc">
                                                                 <div>
@@ -65,7 +122,38 @@ class Women extends Component {
                                                                                 ))
                                                                             }
                                                                         </p>}
-                                                                    {/* <p className="product-price">{currency}{product?.prices[0]?.amount}</p> */}
+                                                                </div>
+                                                            </div>
+                                                            <Link to={`/productDetail/${product?.id}`}>
+                                                                <div className="add-to-cart">
+                                                                    <BsCart className="product-cart-icon" />
+                                                                </div>
+                                                            </Link>
+                                                        </div>
+                                                    ))
+                                                }
+                                                {
+                                                    category === 'tech' &&
+                                                    filterProducts.map(product => (
+                                                        product?.category === 'tech' &&
+                                                        <div className="card">
+                                                            <div className="product-desc">
+                                                                <div>
+                                                                    <img className="product-img" src={product?.gallery[0]} alt="" />
+                                                                    <p className="product-title">{product?.name}</p>
+                                                                    {!currency ? <p className="product-price">
+                                                                        ${product?.prices[0]?.amount}
+                                                                    </p>
+                                                                        :
+                                                                        <p className="product-price">
+                                                                            {
+                                                                                amounts.map((price, priceIndex) => (
+                                                                                    currency.currencyName === price?.currency &&
+                                                                                    <p className="product-price">{currency.symbol}{product?.prices[priceIndex].amount}</p>
+
+                                                                                ))
+                                                                            }
+                                                                        </p>}
                                                                 </div>
                                                             </div>
                                                             <Link to={`/productDetail/${product?.id}`}>
@@ -89,8 +177,6 @@ class Women extends Component {
         )
     }
 }
-
-
 Women.contextType = ButtonFunctionsContext;
 export default Women;
 

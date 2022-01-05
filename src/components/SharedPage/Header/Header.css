@@ -32,46 +32,12 @@
     display: flex;
     align-items: center;
 }
-
-#currency-dropdown{
-    width: 40px;
-}
-#selected-currency{
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-    position: relative;
+.navbar-right > select {
+    font-size: 18px;
+    font-weight: 500;
+    border: none;
+    outline-style: none;
     cursor: pointer;
-}
-#selected-currency > img {
-    width: 10px;
-    height: 10px;
-}
-#selected-currency > p{
-    font-size: 18px;
-    font-weight: 500;
-}
-
-#list{
-    position: absolute;
-    top: 6%;
-    z-index: 1;
-    background-color: #ffffff;
-    /* border: 1px solid black; */
-}
-.hide-currency{
-    border: 1px solid red;
-}
-.option{
-    list-style: none;
-    display: flex;
-    font-size: 18px;
-    font-weight: 500;
-    justify-content: center;
-}
-.symbol{
-    margin-right: 5px;
 }
 .cart-icon-container{
     position: relative;

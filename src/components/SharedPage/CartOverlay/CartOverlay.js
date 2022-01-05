@@ -6,30 +6,9 @@ import './CartOverlay.css';
 
 class CartOverlay extends Component {
 
-    // constructor() {
-    //     super();
-    //     this.state = {
-    //         count: []
-    //     }
-    // }
-
-    // handlePlusBtn = (addedProducts) => {
-    //     const totalCount = this.state.count.slice()
-
-    //     for (var i in totalCount) {
-    //         const { addedProduct } = addedProducts;
-
-    //         if (totalCount[i].name === addedProduct.name) {
-    //             const uuu = totalCount[i].count = addedProduct.count + 1;
-    //             totalCount.push(uuu)
-    //         }
-    //         this.setState({ totalCount })
-    //     }
-
-    // }
-
     render() {
-        const { amounts, currency, addedProducts, handleIncrementProductQuantity, handleDecrementProductQuantity, buttonIndex, colorIndex, capacityIndex, usbPortIndex, keyboardIndex } = this.context
+        const { amounts, currency, addedProducts, handleIncrementProductQuantity, handleDecrementProductQuantity, buttonIndex, colorIndex, capacityIndex, usbPortIndex, keyboardIndex } = this.context;
+
         return (
             <div className="cart-overlay-section">
                 <div className="cart-overlay-container">
@@ -58,15 +37,6 @@ class CartOverlay extends Component {
 
                                                         ))
                                                 }
-                                                {/* <p className="cart-overlay-price">{currency}{
-                                                    (amounts.map((price, priceIndex) => (
-                                                        currency === price?.currency &&
-                                                        <p className="selected-product-price">{currency}{product?.prices[priceIndex].amount}</p>
-
-                                                    )) * product?.count).toFixed(2)
-                                                    // (product?.prices[0]?.amount * product?.count).toFixed(2)
-                                                }
-                                                </p> */}
                                                 <div className="cart-overlay-size-btns">
                                                     {
                                                         product?.attributes.map(attribute => (

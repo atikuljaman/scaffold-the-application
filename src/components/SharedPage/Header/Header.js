@@ -14,8 +14,6 @@ function ProvideData({ children }) {
 
 }
 
-// const symbols = ['$', '£', 'A$', '¥', '₽']
-
 
 class Header extends Component {
 
@@ -45,7 +43,6 @@ class Header extends Component {
                 dropdown.classList.remove("active")
             });
         };
-
 
 
         return (
@@ -119,3 +116,5 @@ class Header extends Component {
 
 Header.contextType = ButtonFunctionsContext;
 export default Header;
+
+
