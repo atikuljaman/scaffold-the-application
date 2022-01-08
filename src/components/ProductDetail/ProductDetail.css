@@ -63,6 +63,7 @@
     color: #292929;
     transition: 0.3s linear;
     text-transform: uppercase;
+    background-color: white;
 }
 .size-select-btns > button.active-btn{
     background-color: #1D1F22;

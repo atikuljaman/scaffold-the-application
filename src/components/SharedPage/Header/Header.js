@@ -11,15 +11,13 @@ import './Header.css';
 function ProvideData({ children }) {
     const { loading, error, data } = useProducts();
     return children({ loading, error, data, })
-
 }
 
 
 class Header extends Component {
 
     render() {
-        const { buttonIndex, selectedSizeBtnRef, handleTabSizeBtn, handleIncrementProductQuantity, totalCount, handleDecrementProductQuantity } = this.props;
-        const { addedProducts, currencySwitcher, amountSwitcher } = this.context;
+        const { addedProducts, currencySwitcher, amountSwitcher, buttonIndex, selectedSizeBtnRef, handleTabSizeBtn, handleIncrementProductQuantity, totalCount, handleDecrementProductQuantity } = this.context;
 
         const cartOverlayBtn = e => {
             const isDropDownButton = e.target.matches("[data-dropdown-overlay-btn]");

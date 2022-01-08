@@ -3,7 +3,7 @@
     position: absolute;
     width: 100vw;
     height: 100vh;
-    left: -1314.5px;
+    left: -1316px;
     top: 24px;
     font-family: Raleway;
 }
@@ -15,7 +15,13 @@
     top: 0px;
     right: 70px;
     padding: 8px 16px;
+    padding-right: 0;
     transition:  ease-in-out 1s;
+}
+.cart-overlay-sub-container{
+    width: 100%;
+    height: 69%;
+    overflow-y: scroll;
 }
 .cart-overlay-title{
     font-size: 16px;
@@ -55,18 +61,19 @@
     align-items: center;
 }
 .cart-overlay-size-btn{
-    width: 24px;
-    height: 24px;
-    color: #1D1F22;
-    font-size: 14px;
+    width: 42px;
+    height: 34px;
+    color: #A6A6A6;
+    font-size: 13px;
     font-weight: 400;
-    background-color: transparent;
-    border: 1px solid #1D1F22;
+    border: 1px solid #A6A6A6;
     margin-right: 8px;
+    padding: 5px;
     cursor: pointer;
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: white;
 }
 .cart-overlay-size-btn.active-btn{
     background-color: #1D1F22;
@@ -92,6 +99,7 @@
     align-items: center;
     font-size: 12px;
     cursor: pointer;
+    background-color: white;
 }
 .increase-btns > p{
     color: #1D1F22;
@@ -105,7 +113,10 @@
 .total-price-container{
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: center; 
+    position: absolute;
+    width: 90%;
+    bottom: 15%;
 }
 .total-price-title{
     font-weight: 500;
@@ -117,14 +128,16 @@
     font-size: 16px;
 }
 .added-product-bottom-btns{
-   
     margin-top: 22px;
     position: absolute;
-    left: 9.3%;
     bottom: 4%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center; 
+    width: 91%;
 }
 .view-bag-btn{
-    width: 140px;
+    width: 150px;
     height: 43px;
     text-transform: uppercase;
     font-size: 14px;
@@ -135,7 +148,6 @@
     padding: 16px, 32px, 16px, 32px;
     cursor: pointer;
     transition: 0.4s ease-in-out;
-    margin-right: 12px;
 }
 .view-bag-btn:hover{
     background-color: #5ECE7B;
@@ -143,7 +155,7 @@
     border: none;
 }
 .check-out-btn{
-    width: 140px;
+    width: 150px;
     height: 43px;
     text-transform: uppercase;
     font-size: 14px;

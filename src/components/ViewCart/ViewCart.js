@@ -20,39 +20,41 @@ class ViewCart extends Component {
                                         <br />
                                         <span>{addedProduct?.name}</span>
                                     </p>
-                                    <p className="view-cart-product-price">
-                                        {
+                                    {
+                                        !currency ? <p className="view-cart-product-price">
+                                            ${(addedProduct?.prices[0]?.amount * addedProduct?.count).toFixed(2)}
+                                        </p>
+                                            :
                                             amounts.map((price, priceIndex) => (
                                                 currency.currencyName === price?.currency &&
-                                                <p className="view-cart-product-price">{currency.symbol}{addedProduct?.prices[priceIndex].amount}</p>
+                                                <p className="view-cart-product-price">{currency.symbol}{(addedProduct?.prices[priceIndex].amount * addedProduct?.count).toFixed(2)}</p>
 
                                             ))
-                                        }
-                                    </p>
+                                    }
                                     <div className="view-cart-product-size-btn">
                                         {
                                             addedProduct?.attributes.map(attribute => (
                                                 <div>
                                                     {
                                                         attribute.id === 'Size' &&
-                                                        <button>{attribute?.items[buttonIndex]?.displayValue}</button>
+                                                        <button>{attribute?.items[buttonIndex]?.value}</button>
 
                                                     }
                                                     {
                                                         attribute.type === 'swatch' &&
-                                                        <button style={{ backgroundColor: attribute?.items[buttonIndex].displayValue }}></button>
+                                                        <button style={{ backgroundColor: attribute?.items[buttonIndex].value }}></button>
                                                     }
                                                     {
                                                         attribute.id === 'Capacity' &&
-                                                        <button>{attribute?.items[capacityIndex].displayValue}</button>
+                                                        <button>{attribute?.items[capacityIndex].value}</button>
                                                     }
                                                     {
                                                         attribute.id === 'With USB 3 ports' &&
-                                                        <button>{attribute?.items[usbPortIndex].displayValue}</button>
+                                                        <button>{attribute?.items[usbPortIndex].value}</button>
                                                     }
                                                     {
                                                         attribute.id === 'Touch ID in keyboard' &&
-                                                        <button>{attribute?.items[keyboardIndex].displayValue}</button>
+                                                        <button>{attribute?.items[keyboardIndex].value}</button>
                                                     }
                                                 </div>
 

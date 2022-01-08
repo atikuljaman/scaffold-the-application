@@ -10,22 +10,32 @@ export class ButtonFunctionsProvider extends Component {
             addedProducts: [],
             index: 0,
             buttonIndex: 0,
+            buttonIndex2: 0,
             colorIndex: 0,
             capacityIndex: 0,
             usbPortIndex: 0,
             keyboardIndex: 0,
             currency: '',
             amounts: [],
-            priceIndex: 0,
             category: '',
             filterProducts: []
         }
     };
 
 
+    selectedImgRef = createRef();
+    selectedSizeBtnRef = createRef();
+    selectedSizeBtnRef2 = createRef();
+    selectedColorBtnRef = createRef();
+    selectedCapacityBtnRef = createRef();
+    selectedUsbPortBtnRef = createRef();
+    selectedKeyboardBtnRef = createRef();
+    selectedPriceRef = createRef();
+
+
     handleAddToCart = data => {
         const { product } = data
-        const addedProducts = this.state.addedProducts.slice();
+        const addedProducts = this.state.addedProducts;
         let allReadyAddedToCart = false;
 
         addedProducts.forEach(addedProduct => {
@@ -33,12 +43,13 @@ export class ButtonFunctionsProvider extends Component {
                 allReadyAddedToCart = true
                 addedProduct.count++
             }
-        });
+        })
 
         if (!allReadyAddedToCart) {
             addedProducts.push({ ...product, count: 1 })
         }
-        this.setState({ addedProducts })
+
+        this.setState({ addedProducts });
     };
 
     handleIncrementProductQuantity = (product) => {
@@ -67,14 +78,6 @@ export class ButtonFunctionsProvider extends Component {
     }
 
 
-    selectedImgRef = createRef();
-    selectedSizeBtnRef = createRef();
-    selectedColorBtnRef = createRef();
-    selectedCapacityBtnRef = createRef();
-    selectedUsbPortBtnRef = createRef();
-    selectedKeyboardBtnRef = createRef();
-
-
     handleTabImg = index => {
         this.setState({ index: index })
         const images = this.selectedImgRef.current.children;
@@ -92,6 +95,7 @@ export class ButtonFunctionsProvider extends Component {
         }
         buttons[buttonIndex].className = "active-btn";
     }
+
     handleTabColorBtn = colorIndex => {
         this.setState({ colorIndex: colorIndex })
         const buttons = this.selectedColorBtnRef.current.children;
@@ -152,7 +156,6 @@ export class ButtonFunctionsProvider extends Component {
             }
         ];
 
-
         if (e.target.value === 'USD') {
             this.setState({ currency: currencies[0] });
         }
@@ -173,23 +176,20 @@ export class ButtonFunctionsProvider extends Component {
     amountSwitcher = data => {
         data.forEach(products => {
             this.setState({ amounts: products.prices });
-        })
+        });
     }
 
     productCategory = e => {
         this.setState({ category: e.target.value })
-        console.log(e.target.value);
     }
 
     filterProductsByCategory = data => {
         this.setState({ filterProducts: data })
-        console.log(this.state.filterProducts);
     }
-
 
     render() {
         const { category, filterProducts, amounts, currency, addedProducts, filterProduct, index, buttonIndex, colorIndex, capacityIndex, usbPortIndex, keyboardIndex } = this.state;
-        const { selectedImgRef, selectedSizeBtnRef, selectedColorBtnRef, selectedCapacityBtnRef, selectedUsbPortBtnRef, selectedKeyboardBtnRef, handleAddToCart, handleIncrementProductQuantity, handleDecrementProductQuantity, handleTabImg, handleTabSizeBtn, handleTabColorBtn, handleTabCapacityBtn, handleTabUsbPortBtn, handleTabKeyboardBtn, currencySwitcher, amountSwitcher, filterProductsByCategory, productCategory } = this;
+        const { selectedImgRef, selectedSizeBtnRef, selectedColorBtnRef, selectedCapacityBtnRef, selectedUsbPortBtnRef, selectedKeyboardBtnRef, handleAddToCart, handleIncrementProductQuantity, handleDecrementProductQuantity, handleTabImg, handleTabSizeBtn, handleTabSizeBtn2, handleTabColorBtn, handleTabCapacityBtn, handleTabUsbPortBtn, handleTabKeyboardBtn, currencySwitcher, amountSwitcher, filterProductsByCategory, productCategory } = this;
 
 
 
@@ -218,6 +218,7 @@ export class ButtonFunctionsProvider extends Component {
                 handleDecrementProductQuantity,
                 handleTabImg,
                 handleTabSizeBtn,
+                handleTabSizeBtn2,
                 handleTabColorBtn,
                 handleTabCapacityBtn,
                 handleTabUsbPortBtn,
@@ -226,9 +227,6 @@ export class ButtonFunctionsProvider extends Component {
                 amountSwitcher,
                 filterProductsByCategory,
                 productCategory
-
-
-
             }}>
                 {this.props.children}
             </ButtonFunctionsContext.Provider>
